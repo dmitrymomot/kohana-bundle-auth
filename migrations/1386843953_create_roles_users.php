@@ -20,12 +20,19 @@ class Create_Roles_Users extends Migration
 				'role_id' => array('type' => 'int(10)', 'null' => FALSE, 'unsigned' => TRUE),
 			),
 			array(
+				'id' => NULL,
 				'options' => array('ENGINE=innoDB', 'DEFAULT', 'CHARSET=utf8'),
 			)
 		);
 
 		$this->add_index('roles_users', 'primary_key', array('user_id', 'role_id'), 'unique');
 		$this->add_index('roles_users', 'fk_role_id', 'role_id');
+
+		$this->execute("
+			ALTER TABLE `roles_users`
+			  ADD CONSTRAINT `roles_users_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+			  ADD CONSTRAINT `roles_users_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+		");
 
 		$this->execute("
 			INSERT INTO `roles_users` (`user_id`, `role_id`) VALUES(1, 1);

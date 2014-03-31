@@ -24,13 +24,18 @@ class Create_User_Tokens extends Migration
 				'expires' 		=> array('type' => 'int(10)', 		'null' => FALSE, 'unsigned' => TRUE),
 			),
 			array(
-				'options' => 'ENGINE=innoDB DEFAULT CHARSET=utf8',
+				'options' => array('ENGINE=innoDB', 'DEFAULT', 'CHARSET=utf8'),
 			)
 		);
 
 		$this->add_index('user_tokens', 'uniq_token', 'token', 'unique');
 		$this->add_index('user_tokens', 'fk_user_id', 'user_id');
 		$this->add_index('user_tokens', 'expires', 'expires');
+
+		$this->execute("
+			ALTER TABLE `user_tokens`
+			  ADD CONSTRAINT `user_tokens_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+		");
 	}
 
 	public function down()

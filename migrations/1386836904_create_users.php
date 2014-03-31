@@ -24,7 +24,7 @@ class Create_Users extends Migration
 				'last_login' 	=> array('type' => 'int(10)', 'unsigned' => TRUE),
 			),
 			array(
-				'options' => 'ENGINE=innoDB DEFAULT CHARSET=utf8',
+				'options' => array('ENGINE=innoDB', 'DEFAULT', 'CHARSET=utf8'),
 			)
 		);
 

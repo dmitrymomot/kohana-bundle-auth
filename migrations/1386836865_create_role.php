@@ -21,7 +21,7 @@ class Create_Role extends Migration
 				'description' => array('type' => 'varchar(255)', 'null' => FALSE),
 			),
 			array(
-				'options' => 'ENGINE=innoDB DEFAULT CHARSET=utf8',
+				'options' => array('ENGINE=innoDB', 'DEFAULT', 'CHARSET=utf8'),
 			)
 		);
 
